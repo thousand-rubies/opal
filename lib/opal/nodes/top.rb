@@ -15,10 +15,14 @@ module Opal
       def compile
         push version_comment
 
+        body_code = nil
+
         in_scope do
           line '"use strict";' if compiler.use_strict?
 
-          body_code = stmt(stmts)
+          in_closure(Closure::FUNCTION | Closure::MODULE) do
+            body_code = stmt(stmts)
+          end
           body_code = [body_code] unless body_code.is_a?(Array)
 
           if compiler.eval?

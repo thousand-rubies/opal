@@ -46,6 +46,8 @@ module Opal
   #   compiler.source_map # => #<SourceMap:>
   #
   class Compiler
+    include Closure::CompilerSupport
+
     # Generated code gets indented with two spaces on each scope
     INDENT = '  '
 

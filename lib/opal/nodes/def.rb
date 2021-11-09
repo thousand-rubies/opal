@@ -23,7 +23,9 @@ module Opal
           # Setting a default block name (later can be overwritten by a blockarg)
           scope.block_name = '$yield'
 
-          inline_params = process(inline_args)
+          in_closure(Closure::FUNCTION | Closure::DEF) do
+            inline_params = process(inline_args)
+          end
 
           stmt_code = stmt(compiler.returns(stmts))
 

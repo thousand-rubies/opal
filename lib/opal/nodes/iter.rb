@@ -24,7 +24,9 @@ module Opal
 
           compile_arity_check
 
-          body_code = stmt(returned_body)
+          in_closure(Closure::FUNCTION | Closure::ITER) do
+            body_code = stmt(returned_body)
+          end
 
           add_temp "self = #{identity}.$$s == null ? this : #{identity}.$$s" if @define_self
 

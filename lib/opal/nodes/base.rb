@@ -6,6 +6,7 @@ module Opal
   module Nodes
     class Base
       include Helpers
+      include Closure::NodeSupport
 
       def self.handlers
         @handlers ||= {}

@@ -18,8 +18,10 @@ module Opal
       end
 
       def compile_with_if
+        push_closure if expects_expression?
         truthy = self.truthy
         falsy = self.falsy
+        pop_closure if expects_expression?
 
         if falsy && !truthy
           # Let's optimize a little bit `unless` calls.

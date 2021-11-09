@@ -11,7 +11,9 @@ module Opal
 
       def compile
         compiler.in_case do
+          push_closure if needs_closure?
           compile_code
+          pop_closure if needs_closure?
 
           if needs_closure?
             if scope.await_encountered

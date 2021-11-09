@@ -12,6 +12,8 @@ module Opal
       def compile
         push 'try {'
 
+        push_closure if wrap_in_closure?
+
         in_ensure do
           line stmt(body_sexp)
         end
@@ -46,6 +48,8 @@ module Opal
             line compiler.process(ensr_sexp, @level)
           end
         end
+
+        pop_closure if wrap_in_closure?
 
         line '}'
 
@@ -94,6 +98,8 @@ module Opal
           line 'var $no_errors = true;'
         end
 
+        push_closure if expr? || recv?
+
         in_rescue(self) do
           push 'try {'
           indent do
@@ -136,6 +142,8 @@ module Opal
 
           wrap "#{retry_id}: do { ", ' break; } while(1)' if retry_id
         end
+
+        pop_closure if expr? || recv?
 
         # Wrap a try{} catch{} into a function
         # when it's an expression

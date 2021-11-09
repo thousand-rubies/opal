@@ -17,7 +17,12 @@ module Opal
             while_loop[:closure] = true if wrap_in_closure?
             while_loop[:redo_var] = redo_var
 
-            body_code = indent { stmt(body) }
+            push_closure if wrap_in_closure?
+            in_closure(Closure::LOOP) do
+              body_code = indent { stmt(body) }
+            end
+            pop_closure if wrap_in_closure?
+
             if uses_redo?
               compile_with_redo(test_code, body_code, redo_var)
             else
