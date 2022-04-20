@@ -64,7 +64,10 @@ module Opal
 
           body_code = stmt(returned_body)
 
-          add_temp "self = #{identity}.$$s == null ? this : #{identity}.$$s" if @define_self
+          if @define_self
+            helper :get_iter_self
+            add_temp "self = $get_iter_self(#{identity}, this)"
+          end
 
           to_vars = scope.to_vars
 

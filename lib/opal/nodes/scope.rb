@@ -402,12 +402,8 @@ module Opal
         scope_name = scope.identity
         self.block_name = block_name if block_name
 
-        add_temp "#{self.block_name} = #{scope_name}.$$p || nil"
-
-        unless @block_prepared
-          line "delete #{scope_name}.$$p;"
-          @block_prepared = true
-        end
+        helper :get_block
+        add_temp "#{self.block_name} = $get_block(#{scope_name})"
       end
 
       attr_accessor :await_encountered

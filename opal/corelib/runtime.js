@@ -2842,6 +2842,17 @@
     }
   }
 
+  // Primitives for handling parameters
+  Opal.get_iter_self = function(iter, self) {
+    return iter.$$s == null ? self : iter.$$s;
+  }
+
+  Opal.get_block = function(fun) {
+    var block = fun.$$p || nil;
+    delete fun.$$p;
+    return block;
+  }
+
   // Initialization
   // --------------
   Opal.BasicObject = BasicObject = Opal.allocate_class('BasicObject', null);
