@@ -1,4 +1,4 @@
-# helpers: truthy, coerce_to, const_set, Object, return_ivar, assign_ivar, ivar
+# helpers: truthy, coerce_to, const_set, Object, return_ivar, assign_ivar, ivar, is_nil
 
 class ::Module
   def self.allocate
@@ -581,7 +581,7 @@ class ::Module
 
       while (base) {
         // Give up if any of the ancestors is unnamed
-        if (base.$$name === nil || base.$$name == null) return nil;
+        if ($is_nil(base.$$name)) return nil;
 
         result.unshift(base.$$name);
 
