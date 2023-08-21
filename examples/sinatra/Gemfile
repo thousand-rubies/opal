@@ -2,5 +2,5 @@ source 'https://rubygems.org'
 
 gem 'opal', :path => '../..'
 gem 'opal-sprockets'
-gem 'puma' # webrick has a bug with safari
+gem 'puma' , '>= 5.6.7' # webrick has a bug with safari
 gem 'sinatra'
