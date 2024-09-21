@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 
 gem 'rack'
 gem 'opal', :path => '../../'
-gem 'puma'
+gem 'puma', '>= 5.6.9'
